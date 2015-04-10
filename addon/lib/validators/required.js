@@ -8,14 +8,14 @@ export default Validator.extend({
   badValues: Ember.A([null, undefined, '']),
 
   errorMessages: {
-    main: 'Value is required, cannot be %@',
+    main: 'Value is required, cannot be %@.',
   },
 
   call: function(value) {
     this.clearErrors();
 
     if(get(this, 'badValues').contains(value)) {
-      this.addError('main', value);
+      this.addError('main', this.stringify(value));
 
       return false;
     }

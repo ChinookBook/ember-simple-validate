@@ -37,3 +37,10 @@ test('it formats error messages', function(assert) {
 
   assert.equal(get(subject, 'errors')[0], 'warning, error!');
 });
+
+test('it stringifies weird values', function(assert) {
+  assert.equal(subject.stringify(null), 'null');
+  assert.equal(subject.stringify(undefined), 'undefined');
+  assert.equal(subject.stringify(''), '""');
+  assert.equal(subject.stringify('string'), '"string"');
+});

@@ -31,5 +31,17 @@ export default Ember.Object.extend({
 
   clearErrors: function() {
     set(this, 'errors', Ember.A());
+  },
+
+  with: function(options) {
+    set(this, 'options', options);
+
+    return this;
+  },
+
+  stringify: function(value) {
+    var stringified = JSON.stringify(value);
+
+    return stringified === undefined ? 'undefined' : stringified;
   }
 });

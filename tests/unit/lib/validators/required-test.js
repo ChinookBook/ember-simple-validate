@@ -28,3 +28,16 @@ test('it allows "falsey" values', function(assert) {
     assert.equal(subject.call(value), true);
   });
 });
+
+test('it formats error messages correctly', function(assert) {
+  var values = [null, undefined, ''];
+  var stringified = ['null', 'undefined', '""'];
+
+  values.forEach(function(value, key) {
+    subject.call(value);
+
+    var error = subject.errors[0];
+
+    assert.ok(new RegExp(stringified[key] + '.$').test(error));
+  });
+});
