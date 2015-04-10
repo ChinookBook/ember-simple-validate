@@ -1,10 +1,43 @@
 import validate from '../../../utils/validate';
 import { module, test } from 'qunit';
 
-module('validate');
+import Required from 'ember-simple-validate/lib/validators/required';
 
-// Replace this with your real tests.
-test('it works', function(assert) {
-  var result = validate();
-  assert.ok(result);
+var validators;
+var user;
+
+module('validate', {
+  beforeEach: function() {
+    validators = {
+      firstName: Required.create(),
+      lastName: Required.create(),
+    };
+
+    user = {
+      firstName: 'Mihai',
+      lastName: 'Scurtu',
+    };
+  }
+});
+
+test('it validates a simple object', function(assert) {
+  var result = validate(user, validators);
+
+  assert.equal(result, true);
+});
+
+test('it fails on error', function(assert) {
+  delete user.lastName;
+
+  var result = validate(user, validators);
+
+  assert.equal(result, false);
+});
+
+test('errors are retrievable', function(assert) {
+  delete user.lastName;
+
+  var result = validate(user, validators);
+
+  assert.ok(validators.lastName.errors[0]);
 });
