@@ -44,3 +44,9 @@ test('it stringifies weird values', function(assert) {
   assert.equal(subject.stringify(''), '""');
   assert.equal(subject.stringify('string'), '"string"');
 });
+
+test('it sets options and returns self reference', function(assert) {
+  var options = {foo: 'bar'};
+
+  assert.deepEqual(options, get(subject.with(options), 'options'));
+});
