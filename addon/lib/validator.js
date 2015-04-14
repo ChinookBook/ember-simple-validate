@@ -47,6 +47,11 @@ export default Ember.Object.extend({
 
       return stringified === undefined ? 'undefined' : stringified;
     }
+  },
 
+  isSet: function(value) {
+    var nullValues = Ember.A([null, undefined, '']);
+
+    return !nullValues.contains(value);
   }
 });

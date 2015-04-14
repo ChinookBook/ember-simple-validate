@@ -12,11 +12,15 @@ export default Validator.extend({
   call: function(value) {
     this.clearErrors();
 
-    var formats = [
-      this.get('options.dateFormat'),
-      this.get('options.dateFormat') + ' ' + this.get('options.timeFormat'),
-    ];
+    if(this.isSet(value)) {
+      var formats = [
+        this.get('options.dateFormat'),
+        this.get('options.dateFormat') + ' ' + this.get('options.timeFormat'),
+      ];
 
-    return moment(value, formats, true).isValid();
+      return moment(value, formats, true).isValid();
+    }
+
+    return true;
   }
 });

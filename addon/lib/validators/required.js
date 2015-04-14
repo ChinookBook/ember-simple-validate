@@ -1,12 +1,6 @@
-import Ember from 'ember';
 import Validator from '../validator';
 
-var get = Ember.get;
-// var set = Ember.set;
-
 export default Validator.extend({
-  badValues: Ember.A([null, undefined, '']),
-
   errorMessages: {
     main: 'Value is required, cannot be %@.',
   },
@@ -14,7 +8,7 @@ export default Validator.extend({
   call: function(value) {
     this.clearErrors();
 
-    if(get(this, 'badValues').contains(value)) {
+    if(!this.isSet(value)) {
       this.addError('main', this.stringify(value));
 
       return false;

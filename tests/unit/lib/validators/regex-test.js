@@ -18,6 +18,12 @@ test('it is an instance of a validator', function(assert) {
   assert.ok(subject instanceof Validator);
 });
 
+test('it allows empty values (unless paired with required)', function(assert) {
+  assert.ok(subject.call(''));
+  assert.ok(subject.call(null));
+  assert.ok(subject.call(undefined));
+});
+
 test('it validates simple values', function(assert) {
   subject.set('options.pattern', /ab+a/);
 

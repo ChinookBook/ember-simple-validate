@@ -17,13 +17,15 @@ export default Validator.extend({
   call: function(value) {
     this.clearErrors();
 
-    var pattern = this.get('options.pattern');
-    var regex = new RegExp(pattern);
+    if(this.isSet(value)) {
+      var pattern = this.get('options.pattern');
+      var regex = new RegExp(pattern);
 
-    if(!regex.test(value)) {
-      this.addError('main', this.stringify(value), this.stringify(regex));
+      if(!regex.test(value)) {
+        this.addError('main', this.stringify(value), this.stringify(regex));
 
-      return false;
+        return false;
+      }
     }
 
     return true;
