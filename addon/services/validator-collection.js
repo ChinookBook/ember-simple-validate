@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 import RequiredValidator from 'ember-simple-validate/lib/validators/required';
 import RegexValidator from 'ember-simple-validate/lib/validators/regex';
+import DateValidator from 'ember-simple-validate/lib/validators/date';
 
 export default Ember.Service.extend({
   required: function() {
@@ -13,4 +14,8 @@ export default Ember.Service.extend({
       pattern: pattern
     });
   },
+
+  date: function() {
+    return DateValidator.create();
+  }
 });
