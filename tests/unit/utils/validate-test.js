@@ -70,3 +70,21 @@ test('it works with computed properties', function(assert) {
   var result = validate(userObject, validators);
   assert.equal(result, true);
 });
+
+test('it works with nested properties', function(assert) {
+  var user = Ember.Object.create();
+
+  validators = {
+    'address.city': Required.create(),
+  };
+
+  var result = validate(user, validators);
+  assert.equal(result, false);
+
+  user.set('address', {
+    city: 'foo',
+  });
+
+  result = validate(user, validators);
+  assert.equal(result, true);
+});

@@ -8,7 +8,7 @@ export default function validate(object, validators) {
   Ember.keys(validators).forEach(function(field) {
     var value = get(object, field);
 
-    var validatorsForCurrentField = Ember.makeArray(get(validators, field));
+    var validatorsForCurrentField = Ember.makeArray(validators[field]);
 
     validatorsForCurrentField.forEach(function(validator) {
       if(validator.call(value) === false) {
