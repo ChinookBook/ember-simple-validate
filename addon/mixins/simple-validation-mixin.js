@@ -8,7 +8,6 @@ var set = Ember.set;
 
 export default Ember.Mixin.create({
   init: function() {
-    set(this, 'validators', {});
     set(this, 'validationErrors', {});
     set(this, 'isValid', undefined);
   },
@@ -32,7 +31,7 @@ export default Ember.Mixin.create({
   },
 
   canValidate: function() {
-    var validators = get(this, 'validators');
+    var validators = get(this, 'validators') || {};
     var canValidate = true;
 
     var keys = Ember.keys(validators);

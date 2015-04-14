@@ -34,6 +34,38 @@ test('it validates a simple object', function(assert) {
   assert.equal(user.get('isValid'), true);
 });
 
+test('"validators" can be a computed property', function(assert) {
+  var NewUser = Ember.Object.extend(SimpleValidationMixin, {
+    firstName: 'Mihai',
+    lastName: '',
+
+    lastNameOptional: false,
+
+    validators: Ember.computed('lastNameOptional', function() {
+      var validators = {
+        firstName: Assert.required(),
+      };
+
+      if(!this.get('lastNameOptional')) {
+        validators.lastName = Assert.required();
+      }
+
+      return validators;
+    }),
+  });
+
+  user = NewUser.create();
+
+  user.set('lastNameOptional', false);
+  user.validate();
+  assert.equal(user.get('isValid'), false);
+
+  user.set('lastNameOptional', true);
+  user.validate();
+  assert.equal(user.get('isValid'), true);
+
+});
+
 test('it catches errors', function(assert) {
   user.set('validators', validators);
   user.set('firstName', '');
