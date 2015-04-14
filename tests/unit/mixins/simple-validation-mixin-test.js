@@ -86,10 +86,33 @@ test('it accepts multiple validators for a field', function(assert) {
   user.validate();
   assert.equal(user.get('isValid'), false);
 
+  user.set('lastLogin', 'foo');
+
+  user.validate();
+  assert.equal(user.get('isValid'), false);
+
   user.set('lastLogin', '2016-02-29');
 
   user.validate();
   assert.equal(user.get('isValid'), true);
+});
+
+test('it validates nested properties', function(assert) {
+  validators['address.city'] = Assert.required();
+
+  user.set('validators', validators);
+
+  user.validate();
+  assert.equal(user.get('isValid'), false);
+  assert.equal(user.get('validationErrors.address.city').length, 1);
+
+  user.set('address', {
+    city: 'foo'
+  });
+
+  user.validate();
+  assert.equal(user.get('isValid'), true);
+  assert.equal(user.get('validationErrors.address.city'), undefined);
 });
 
 test("doesn't validate without validators", function(assert) {

@@ -10,13 +10,35 @@ var validValidator = function(validator) {
   return validator instanceof Validator;
 };
 
+var appendErrors = function(obj, key, errors) {
+  var keyParts = key.split('.');
+  var path = 'validationErrors';
+
+  if(errors && errors.length) {
+    keyParts.forEach(function(key, i) {
+      path += '.' + key;
+
+      if(!get(obj, path)) {
+        var blank = i === keyParts.length - 1 ? Ember.A() : {};
+
+        set(obj, path, blank);
+      }
+    });
+
+    errors.forEach(function(error) {
+      get(obj, 'validationErrors.' + key).pushObject(error);
+    });
+  }
+};
+
 export default Ember.Mixin.create({
   init: function() {
-    set(this, 'validationErrors', {});
     set(this, 'isValid', undefined);
   },
 
   validate: function() {
+    set(this, 'validationErrors', {});
+
     if(!this.canValidate()) {
       set(this, 'isValid', true);
     } else {
@@ -27,7 +49,8 @@ export default Ember.Mixin.create({
       set(this, 'isValid', _validate(this, validators));
 
       Ember.keys(validators).forEach(function(key) {
-        set(self, 'validationErrors.' + key, get(validators[key], 'errors'));
+        // set(self, 'validationErrors.' + key, get(validators[key], 'errors'));
+        appendErrors(self, key, get(validators[key], 'errors'));
       });
     }
 
