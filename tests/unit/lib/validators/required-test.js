@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import RequiredValidator from 'ember-simple-validate/lib/validators/required';
+import Validator from 'ember-simple-validate/lib/validator';
 import { module, test } from 'qunit';
 
 var get = Ember.get;
@@ -11,6 +12,10 @@ module('Validators/Required', {
   beforeEach: function() {
     subject = RequiredValidator.create();
   }
+});
+
+test('it is an instance of a validator', function(assert) {
+  assert.ok(subject instanceof Validator);
 });
 
 test('it fails on bad values', function(assert) {
