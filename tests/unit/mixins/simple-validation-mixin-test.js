@@ -78,6 +78,20 @@ test('it catches errors', function(assert) {
   assert.equal(user.get('validationErrors.firstName').length, 1);
 });
 
+test('it accepts multiple validators for a field', function(assert) {
+  validators.lastLogin = [Assert.required(), Assert.date()];
+
+  user.set('validators', validators);
+
+  user.validate();
+  assert.equal(user.get('isValid'), false);
+
+  user.set('lastLogin', '2016-02-29');
+
+  user.validate();
+  assert.equal(user.get('isValid'), true);
+});
+
 test("doesn't validate without validators", function(assert) {
   assert.equal(user.canValidate(), false);
 });

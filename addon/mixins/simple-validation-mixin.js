@@ -6,6 +6,10 @@ import Validator from 'ember-simple-validate/lib/validator';
 var get = Ember.get;
 var set = Ember.set;
 
+var validValidator = function(validator) {
+  return validator instanceof Validator;
+};
+
 export default Ember.Mixin.create({
   init: function() {
     set(this, 'validationErrors', {});
@@ -38,10 +42,14 @@ export default Ember.Mixin.create({
 
     if(keys && keys.length) {
       keys.forEach(function(key) {
-          if(!validators[key] instanceof Validator) {
+        var validatorList = Ember.makeArray(validators[key]);
+
+        validatorList.forEach(function(validator) {
+          if(!validValidator(validator)) {
             canValidate = false;
             return false;
           }
+        });
       });
     } else {
       canValidate = false;
