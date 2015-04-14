@@ -40,7 +40,7 @@ export default Ember.Object.extend({
   },
 
   stringify: function(value) {
-    if(value && typeof value !== "string" && value.toString instanceof Function) {
+    if(value && typeof value !== 'string' && value.toString instanceof Function) {
       return value.toString();
     } else {
       var stringified = JSON.stringify(value);
