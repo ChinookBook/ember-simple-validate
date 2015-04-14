@@ -15,4 +15,5 @@ test('it has the correct validators', function(assert) {
   var service = this.subject();
 
   assert.ok(service.required().call instanceof Function);
+  assert.equal(service.regex('test').get('options.pattern'), 'test');
 });
