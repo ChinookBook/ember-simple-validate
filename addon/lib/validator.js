@@ -40,8 +40,13 @@ export default Ember.Object.extend({
   },
 
   stringify: function(value) {
-    var stringified = JSON.stringify(value);
+    if(value && typeof value !== "string" && value.toString instanceof Function) {
+      return value.toString();
+    } else {
+      var stringified = JSON.stringify(value);
 
-    return stringified === undefined ? 'undefined' : stringified;
+      return stringified === undefined ? 'undefined' : stringified;
+    }
+
   }
 });
