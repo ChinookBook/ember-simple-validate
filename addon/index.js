@@ -1,5 +1,5 @@
-import SimpleValidationMixin from 'ember-simple-validation/mixins/simple-validation-mixin';
-import validate from 'ember-simple-validation/utils/validate';
+import SimpleValidationMixin from 'ember-simple-validate/mixins/simple-validation-mixin';
+import validate from 'ember-simple-validate/utils/validate';
 
 export default {
   Mixin: SimpleValidationMixin,

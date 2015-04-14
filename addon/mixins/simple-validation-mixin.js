@@ -33,6 +33,7 @@ var appendErrors = function(obj, key, errors) {
 
 export default Ember.Mixin.create({
   init: function() {
+    this._super();
     set(this, 'isValid', undefined);
   },
 
