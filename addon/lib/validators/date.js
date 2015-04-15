@@ -10,7 +10,7 @@ export default Validator.extend({
   },
 
   errorMessages: {
-    main: 'Invalid date format',
+    main: 'Invalid date format.',
   },
 
   call: function(value) {
