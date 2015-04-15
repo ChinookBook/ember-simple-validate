@@ -9,6 +9,10 @@ export default Validator.extend({
     timeFormat: 'HH:mm:ss',
   },
 
+  errorMessages: {
+    main: 'Invalid date format',
+  },
+
   call: function(value) {
     this.clearErrors();
 
@@ -18,7 +22,12 @@ export default Validator.extend({
         this.get('options.dateFormat') + ' ' + this.get('options.timeFormat'),
       ];
 
-      return moment(value, formats, true).isValid();
+      if(moment(value, formats, true).isValid()) {
+        return true;
+      } else {
+        this.addError();
+        return false;
+      }
     }
 
     return true;
