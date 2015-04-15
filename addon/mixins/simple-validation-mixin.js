@@ -50,8 +50,11 @@ export default Ember.Mixin.create({
       set(this, 'isValid', _validate(this, validators));
 
       Ember.keys(validators).forEach(function(key) {
-        // set(self, 'validationErrors.' + key, get(validators[key], 'errors'));
-        appendErrors(self, key, get(validators[key], 'errors'));
+        Ember.makeArray(validators[key]).forEach(function(validator) {
+          appendErrors(self, key, get(validator, 'errors'));
+        });
+
+
       });
     }
 

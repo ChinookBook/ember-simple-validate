@@ -97,6 +97,34 @@ test('it accepts multiple validators for a field', function(assert) {
   assert.equal(user.get('isValid'), true);
 });
 
+test('validators do not throw errors if the value is empty (the only error is the required one)', function(assert) {
+  var requiredValidator = Assert.required();
+
+  validators = {
+    lastLogin: [requiredValidator, Assert.date()]
+  };
+
+  user.set('validators', validators);
+
+  user.validate();
+
+  assert.equal(user.get('validationErrors.lastLogin').length, 1);
+  assert.equal(user.get('validationErrors.lastLogin')[0], requiredValidator.errors[0]);
+});
+
+test('it retrieves multiple error messages per field', function(assert) {
+  validators = {
+    lastLogin: [Assert.regex('^2015.*'), Assert.date()]
+  };
+
+  user.set('lastLogin', 'this is not a date, like, at all');
+  user.set('validators', validators);
+
+  user.validate();
+
+  assert.equal(user.get('validationErrors.lastLogin').length, 2);
+});
+
 test('it validates nested properties', function(assert) {
   validators['address.city'] = Assert.required();
 
