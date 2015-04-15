@@ -2,7 +2,7 @@ import Ember from 'ember';
 import SimpleValidationMixin from 'ember-simple-validate/mixins/simple-validation-mixin';
 import { module, test } from 'qunit';
 
-import ValidatorCollection from 'ember-simple-validate/services/validator-collection';
+import ValidatorCollection from 'ember-simple-validate/lib/validator-collection';
 
 var UserClass = Ember.Object.extend(SimpleValidationMixin, {
   firstName: 'Mihai',
