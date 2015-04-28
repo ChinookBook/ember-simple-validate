@@ -5,10 +5,10 @@ export default Validator.extend({
   options: {},
 
   errorMessages: {
-    main: 'Value must be a whole number',
+    main: 'Value must be a whole number.',
 
-    min: 'Value must be larger than %@',
-    max: 'Value must be smaller than %@',
+    min: 'Minimum value: %@.',
+    max: 'Maximum value: %@.',
   },
 
   call: function(value) {
