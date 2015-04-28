@@ -50,3 +50,11 @@ test('it sets options and returns self reference', function(assert) {
 
   assert.deepEqual(options, get(subject.with(options), 'options'));
 });
+
+test('it correctly checks for options', function(assert) {
+  assert.equal(subject.hasOption('foo'), false);
+
+  subject = Validator.create().with({foo: 'bar'});
+
+  assert.equal(subject.hasOption('foo'), true);
+});

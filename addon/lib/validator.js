@@ -53,5 +53,9 @@ export default Ember.Object.extend({
     var nullValues = Ember.A([null, undefined, '']);
 
     return !nullValues.contains(value);
+  },
+
+  hasOption: function(option) {
+    return !Ember.isEmpty(this.get('options.' + option));
   }
 });
