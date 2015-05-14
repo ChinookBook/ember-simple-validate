@@ -4,6 +4,7 @@ import RequiredValidator from 'ember-simple-validate/lib/validators/required';
 import RegexValidator from 'ember-simple-validate/lib/validators/regex';
 import DateValidator from 'ember-simple-validate/lib/validators/date';
 import IntegerValidator from 'ember-simple-validate/lib/validators/integer';
+import MaxLengthValidator from 'ember-simple-validate/lib/validators/max-length';
 
 export default Ember.Object.extend({
   required: function() {
@@ -22,5 +23,11 @@ export default Ember.Object.extend({
 
   integer: function(options) {
     return IntegerValidator.create().with(options);
+  },
+
+  maxLength: function(max) {
+    return MaxLengthValidator.create().with({
+      max: max
+    });
   }
 });

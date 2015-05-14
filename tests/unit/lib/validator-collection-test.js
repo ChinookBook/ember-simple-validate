@@ -15,4 +15,6 @@ test('it has the correct validators', function(assert) {
   var integer = subject.integer({min: 0, max: 1});
   assert.equal(integer.get('options.min'), 0);
   assert.equal(integer.get('options.max'), 1);
+
+  assert.ok(subject.maxLength(1));
 });
