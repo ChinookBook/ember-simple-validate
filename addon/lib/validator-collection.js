@@ -3,6 +3,7 @@ import Ember from 'ember';
 import RequiredValidator from 'ember-simple-validate/lib/validators/required';
 import RegexValidator from 'ember-simple-validate/lib/validators/regex';
 import DateValidator from 'ember-simple-validate/lib/validators/date';
+import NumericValidator from 'ember-simple-validate/lib/validators/numeric';
 import IntegerValidator from 'ember-simple-validate/lib/validators/integer';
 import MaxLengthValidator from 'ember-simple-validate/lib/validators/max-length';
 
@@ -19,6 +20,10 @@ export default Ember.Object.extend({
 
   date: function() {
     return DateValidator.create();
+  },
+
+  numeric: function(options) {
+    return NumericValidator.create().with(options);
   },
 
   integer: function(options) {
