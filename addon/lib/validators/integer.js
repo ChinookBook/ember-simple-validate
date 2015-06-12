@@ -1,7 +1,7 @@
 // import Ember from 'ember';
-import Validator from '../validator';
+import NumericValidator from './numeric';
 
-export default Validator.extend({
+export default NumericValidator.extend({
   options: {},
 
   errorMessages: {
@@ -11,40 +11,7 @@ export default Validator.extend({
     max: 'Maximum value: %@.',
   },
 
-  call: function(value) {
-    this.clearErrors();
-
-    if(!this.isSet(value)) {
-      return true;
-    }
-
-    var isValid = true;
-
-    /* jshint ignore:start */
-    if(value != parseInt(value) || Ember.isArray(value)) {
-      isValid = false;
-      this.addError('main');
-    }
-    /* jshint ignore:end */
-
-    if(isValid) {
-      value = parseInt(value);
-
-      if(this.hasOption('min')) {
-        if(value < this.get('options.min')) {
-          isValid = false;
-          this.addError('min', this.get('options.min'));
-        }
-      }
-
-      if(this.hasOption('max')) {
-        if(value > this.get('options.max')) {
-          isValid = false;
-          this.addError('max', this.get('options.max'));
-        }
-      }
-    }
-
-    return isValid;
+  _parse: function(value) {
+    return parseInt(value);
   }
 });

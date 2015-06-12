@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import IntegerValidator from 'ember-simple-validate/lib/validators/integer';
+import NumericValidator from 'ember-simple-validate/lib/validators/numeric';
 import Validator from 'ember-simple-validate/lib/validator';
 import { module, test } from 'qunit';
 
@@ -8,10 +8,13 @@ var set = Ember.set;
 
 var subject;
 
-module('Validators/Integer', {
+module('Validators/Numeric', {
   beforeEach: function() {
-    subject = IntegerValidator.create().with({});
+    subject = NumericValidator.create();
   },
+  afterEach: function() {
+    subject = null;
+  }
 });
 
 test('it is an instance of a validator', function(assert) {
@@ -24,16 +27,18 @@ test('it allows empty values (unless paired with required)', function(assert) {
   assert.ok(subject.call(undefined));
 });
 
-test('it validates integers', function(assert) {
-  assert.equal(subject.call(1), true);
-  assert.equal(subject.call(0), true);
-  assert.equal(subject.call(-1), true);
-  assert.equal(subject.call('512'), true);
-  assert.equal(subject.call('-512'), true);
+test('it validates numbers', function(assert) {
+  var values = [1, -1, 123, -123, 1.0, -1.0, 0, 0.0, '1', '-1', '123', '-123', '1.0', '-1.0', '0', '0.0', '.33'];
+
+  assert.expect(values.length);
+
+  values.forEach(function(value) {
+    assert.ok(subject.call(value));
+  });
 });
 
 test('it rejects bad values', function(assert) {
-  var badValues = [3.14, 'a1', '1a', '.1', [1], {a: 1}, true, false];
+  var badValues = ['a1', '1a', [1], {a: 1}, true, false];
 
   assert.expect(badValues.length + 1);
 
