@@ -6,6 +6,7 @@ import DateValidator from 'ember-simple-validate/lib/validators/date';
 import NumericValidator from 'ember-simple-validate/lib/validators/numeric';
 import IntegerValidator from 'ember-simple-validate/lib/validators/integer';
 import MaxLengthValidator from 'ember-simple-validate/lib/validators/max-length';
+import EmailValidator from 'ember-simple-validate/lib/validators/email';
 
 export default Ember.Object.extend({
   required: function() {
@@ -34,5 +35,9 @@ export default Ember.Object.extend({
     return MaxLengthValidator.create().with({
       max: max
     });
-  }
+  },
+
+  email: function() {
+    return EmailValidator.create();
+  },
 });

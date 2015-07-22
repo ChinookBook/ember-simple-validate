@@ -17,4 +17,5 @@ test('it has the correct validators', function(assert) {
   assert.equal(integer.get('options.max'), 1);
 
   assert.ok(subject.maxLength(1));
+  assert.ok(subject.email());
 });
